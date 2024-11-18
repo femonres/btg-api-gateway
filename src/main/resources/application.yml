@@ -1,0 +1,37 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: service1
+          uri: http://localhost:8080
+          predicates:
+            - Path=/service1/**
+          metadata:
+            openapi:
+              url: /v3/api-docs
+          filters:
+            - StripPrefix=1
+        - id: service2
+          uri: http://localhost:3000
+          predicates:
+            - Path=/service2/**
+          metadata:
+            openapi:
+              url: /v3/api-docs
+          filters:
+            - StripPrefix=1
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: service1
+        url: /service1/v3/api-docs
+      - name: service2
+        url: /service2/v3/api-docs
+  api-docs:
+    enabled: true
