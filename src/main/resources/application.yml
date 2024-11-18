@@ -28,6 +28,7 @@ spring:
 
 springdoc:
   swagger-ui:
+    path: /portal-ui.html
     urls:
       - name: service1
         url: /service1/v3/api-docs
